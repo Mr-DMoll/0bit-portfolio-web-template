@@ -22,14 +22,14 @@ async function isMaintenanceActive(): Promise<boolean> {
   }
 }
 
-function isSuperAdmin(req: Request): boolean {
+function isAdmin(req: Request): boolean {
   try {
     const token =
       req.cookies?.token ||
       req.headers.authorization?.split(" ")[1];
     if (!token) return false;
     const payload = jwt.verify(token, env.JWT_SECRET) as { role?: string };
-    return payload.role === "SUPER_ADMIN";
+    return payload.role === "ADMIN";
   } catch {
     return false;
   }
@@ -42,7 +42,7 @@ export async function maintenanceMode(
 ): Promise<void> {
   const active = await isMaintenanceActive();
   if (!active) { next(); return; }
-  if (isSuperAdmin(req)) { next(); return; }
+  if (isAdmin(req)) { next(); return; }
 
   res.status(503).json({
     status:  "fail",

@@ -1,2 +1,7 @@
-import LandingPage from "@/features/marketing/pages/LandingPage";
-export default LandingPage;
+import { fetchSchool } from "@/features/school/fetchSchool";
+import { HomePage } from "@/features/school/HomePage";
+
+export default async function Page() {
+  const school = await fetchSchool();
+  return <HomePage school={school} />;
+}

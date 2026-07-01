@@ -1,3 +1,3 @@
 "use client";
-import { AdminActivityPage } from "@/features/admin/pages/ActivityPage";
-export default function Page() { return <AdminActivityPage />; }
+import { ActivityLogPage } from "@/features/admin/pages/ActivityLogPage";
+export default function Page() { return <ActivityLogPage />; }

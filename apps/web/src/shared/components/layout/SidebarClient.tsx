@@ -4,26 +4,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/shared/context/AuthContext";
 import { NAV_CONFIG } from "@/shared/config/nav.config";
-import { BRAND } from "@/shared/config/branding.config";
+import type { Brand } from "@/shared/config/branding.config";
 import {
-  LayoutDashboard, FolderKanban, Users, UserCircle,
-  FileText, Receipt, UsersRound, Activity, ScrollText,
-  Settings, Shield, ToggleLeft, Plug,
+  LayoutDashboard, FolderKanban, Palette, History, Users, BarChart3, FileText, BookOpen,
   ChevronRight, ChevronLeft,
 } from "lucide-react";
 
 const ICON_MAP: Record<string, React.ComponentType<{ size?: number; strokeWidth?: number }>> = {
-  LayoutDashboard, FolderKanban, Users, UserCircle,
-  FileText, Receipt, UsersRound, Activity, ScrollText,
-  Settings, Shield, ToggleLeft, Plug,
+  LayoutDashboard, FolderKanban, Palette, History, Users, BarChart3, FileText, BookOpen,
 };
 
 interface Props {
   isOpen:   boolean;
   onToggle: () => void;
+  brand:    Brand;
 }
 
-export default function SidebarClient({ isOpen, onToggle }: Props) {
+export default function SidebarClient({ isOpen, onToggle, brand: BRAND }: Props) {
   const pathname = usePathname();
   const { user } = useAuth();
 
@@ -54,43 +51,69 @@ export default function SidebarClient({ isOpen, onToggle }: Props) {
 
       {/* ── Logo ─────────────────────────────────────────────────────────────── */}
       <div style={{
-        height:         "var(--topnav-height)",
+        minHeight:      "var(--topnav-height)",
         display:        "flex",
         alignItems:     "center",
         gap:            "10px",
-        padding:        "0 14px",
+        padding:        "10px 14px",
         borderBottom:   "1px solid var(--color-sidebar-border)",
         flexShrink:     0,
         overflow:       "hidden",
         justifyContent: isOpen ? "flex-start" : "center",
       }}>
-        <div style={{
-          width:          "30px",
-          height:         "30px",
-          borderRadius:   "var(--radius-md)",
-          background:     "linear-gradient(135deg, var(--color-accent), var(--color-accent-hover))",
-          display:        "flex",
-          alignItems:     "center",
-          justifyContent: "center",
-          fontSize:       "13px",
-          fontWeight:     800,
-          color:          "#fff",
-          flexShrink:     0,
-          letterSpacing:  "-0.02em",
-        }}>
-          {BRAND.logoMark}
-        </div>
+        {BRAND.logoUrl ? (
+          <img src={BRAND.logoUrl} alt={BRAND.name} style={{
+            width:        "32px",
+            height:       "32px",
+            borderRadius: "50%",
+            objectFit:    "cover",
+            flexShrink:   0,
+          }} />
+        ) : (
+          <div style={{
+            width:          "32px",
+            height:         "32px",
+            borderRadius:   "50%",
+            background:     "var(--color-accent)",
+            display:        "flex",
+            alignItems:     "center",
+            justifyContent: "center",
+            fontSize:       "14px",
+            fontWeight:     700,
+            fontFamily:     "var(--font-display), Georgia, serif",
+            color:          "#fff",
+            flexShrink:     0,
+          }}>
+            {BRAND.logoMark}
+          </div>
+        )}
 
         {isOpen && (
-          <span style={{
-            fontSize:      "15px",
-            fontWeight:    700,
-            color:         "var(--color-sidebar-text-active)",
-            whiteSpace:    "nowrap",
-            letterSpacing: "-0.02em",
-          }}>
-            {BRAND.name}
-          </span>
+          <div style={{ overflow: "hidden" }}>
+            <div style={{
+              fontSize:      "14px",
+              fontWeight:    700,
+              fontFamily:    "var(--font-display), Georgia, serif",
+              color:         "var(--color-sidebar-text-active)",
+              whiteSpace:    "nowrap",
+              overflow:      "hidden",
+              textOverflow:  "ellipsis",
+              lineHeight:    1.25,
+            }}>
+              {BRAND.name}
+            </div>
+            <div style={{
+              fontSize:      "11px",
+              fontWeight:    500,
+              color:         "var(--color-text-muted)",
+              whiteSpace:    "nowrap",
+              overflow:      "hidden",
+              textOverflow:  "ellipsis",
+              lineHeight:    1.25,
+            }}>
+              {BRAND.typeLabel}
+            </div>
+          </div>
         )}
       </div>
 

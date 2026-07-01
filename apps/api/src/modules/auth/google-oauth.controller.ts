@@ -10,11 +10,9 @@ import env from "../../config/env.config.js";
 // Force IPv4 — WSL2 Happy Eyeballs times out on IPv6 for Google APIs
 const ipv4Agent = new https.Agent({ family: 4 });
 
+// Single-tenant site — the only role that ever logs in is ADMIN.
 const ROLE_ROUTES: Record<string, string> = {
-  SUPER_ADMIN: "/super-admin",
-  ADMIN:       "/admin",
-  MANAGER:     "/manager",
-  USER:        "/user",
+  ADMIN: "/admin",
 };
 
 const authService = new AuthService();
@@ -113,24 +111,10 @@ export async function googleCallback(req: Request, res: Response) {
           },
         });
       } else {
-        // Brand-new user via Google — always allowed with USER role
-        user = await prisma.user.create({
-          data: {
-            email:              profile.email.toLowerCase(),
-            password:           "",
-            role:               "USER",
-            accountStatus:      "ACTIVE",
-            firstName:          profile.given_name  ?? null,
-            lastName:           profile.family_name ?? null,
-            googleId:           profile.id,
-            googleRefreshToken: tokens.refresh_token ?? null,
-            avatarUrl:          profile.picture ?? null,
-          },
-        });
-
-        await prisma.auditLog.create({
-          data: { userId: user.id, action: "REGISTERED_GOOGLE" },
-        });
+        // Single-tenant site — there is exactly one account (the seeded
+        // admin). Google sign-in may only link to it; it must never create
+        // a new account, or anyone with a Google account could sign in.
+        return res.redirect(`${env.FRONTEND_URL}/login?error=google_no_account`);
       }
     } else {
       // Refresh token if provided

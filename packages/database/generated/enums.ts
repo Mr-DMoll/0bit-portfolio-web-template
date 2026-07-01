@@ -10,10 +10,8 @@
 */
 
 export const Role = {
-  SUPER_ADMIN: 'SUPER_ADMIN',
   ADMIN: 'ADMIN',
-  MANAGER: 'MANAGER',
-  USER: 'USER'
+  MANAGER: 'MANAGER'
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
@@ -36,3 +34,19 @@ export const RegistrationMode = {
 } as const
 
 export type RegistrationMode = (typeof RegistrationMode)[keyof typeof RegistrationMode]
+
+
+export const SchoolType = {
+  PRIMARY: 'PRIMARY',
+  HIGH: 'HIGH'
+} as const
+
+export type SchoolType = (typeof SchoolType)[keyof typeof SchoolType]
+
+
+export const PostType = {
+  NEWS: 'NEWS',
+  BLOG: 'BLOG'
+} as const
+
+export type PostType = (typeof PostType)[keyof typeof PostType]

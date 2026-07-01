@@ -22,9 +22,15 @@ import { maintenanceMode }     from "./middleware/maintenance.middleware.js";
 import systemRoutes       from "./modules/system/system.routes.js";
 import authRoutes         from "./modules/auth/auth.routes.js";
 import userRoutes         from "./modules/users/user.routes.js";
-import adminRoutes        from "./modules/admin/admin.routes.js";
-import superAdminRoutes   from "./modules/super-admin/super-admin.routes.js";
 import notificationRoutes from "./modules/notifications/notification.routes.js";
+import schoolRoutes       from "./modules/school/school.routes.js";
+import postRoutes         from "./modules/posts/post.routes.js";
+import auditRoutes        from "./modules/audit/audit.routes.js";
+import teamRoutes         from "./modules/team/team.routes.js";
+import analyticsRoutes    from "./modules/analytics/analytics.routes.js";
+import uploadRoutes       from "./modules/upload/upload.routes.js";
+import path from "path";
+import fs from "fs";
 
 const app: Express = express();
 const isProduction = process.env.NODE_ENV === "production";
@@ -60,6 +66,16 @@ app.use(
   })
 );
 
+// ── 3a. STATIC FILES ─────────────────────────────────────────────────────────
+const uploadsDir = path.join(process.cwd(), "public", "uploads");
+if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+// cross-origin: "cross-origin" lets the Next.js app (port 3000) load images
+// served by the API (port 3001) — Helmet's default "same-origin" blocks this.
+app.use("/uploads", (req, res, next) => {
+  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+  next();
+}, express.static(uploadsDir));
+
 // ── 3. PARSERS ────────────────────────────────────────────────────────────────
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -75,9 +91,13 @@ const API = "/api/v1";
 app.use(`${API}/system`,        systemRoutes);
 app.use(`${API}/auth`,          authRateLimiter, authRoutes);
 app.use(`${API}/users`,         userRoutes);
-app.use(`${API}/admin`,         adminRoutes);
-app.use(`${API}/super-admin`,   superAdminRoutes);
 app.use(`${API}/notifications`, notificationRoutes);
+app.use(`${API}/school`,        schoolRoutes);
+app.use(`${API}/posts`,         postRoutes);
+app.use(`${API}/audit`,         auditRoutes);
+app.use(`${API}/team`,          teamRoutes);
+app.use(`${API}/analytics`,     analyticsRoutes);
+app.use(`${API}/upload`,        uploadRoutes);
 
 // ── 6. 404 ────────────────────────────────────────────────────────────────────
 app.use((req: Request, res: Response) => {

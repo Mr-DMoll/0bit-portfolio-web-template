@@ -2,7 +2,7 @@ import { Router } from "express";
 import { protect } from "../../middleware/auth.middleware.js";
 import {
   login, logout, getMe,
-  setPassword, forgotPassword, resetPassword, register,
+  setPassword, forgotPassword, resetPassword,
 } from "./auth.controller.js";
 import { googleRedirect, googleCallback } from "./google-oauth.controller.js";
 
@@ -28,15 +28,6 @@ const router = Router();
  *                 type: string
  */
 router.post("/login", login);
-
-/**
- * @openapi
- * /api/v1/auth/register:
- *   post:
- *     tags: [Auth]
- *     summary: Self-register (only if enabled by admin)
- */
-router.post("/register", register);
 
 /**
  * @openapi

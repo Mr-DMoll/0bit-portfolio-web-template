@@ -1,51 +1,59 @@
 @import "tailwindcss";
 
+/* Explicit content sources — every other file in this app uses inline
+   style={{}} instead of Tailwind utility classes, so this is the first place
+   utility classes (max-w-7xl, px-5, etc.) get used at all. Automatic content
+   detection wasn't picking up the new school feature files, so list them
+   explicitly rather than relying on it. */
+@source "../app";
+@source "../src";
+
 /* ═══════════════════════════════════════════════════════════════════════════
    DESIGN TOKENS — LIGHT THEME (default)
    ═══════════════════════════════════════════════════════════════════════════ */
 :root {
-  /* ── Accent ────────────────────────────────────────────────────────────── */
-  --color-accent:         #6366f1;
-  --color-accent-hover:   #4f46e5;
+  /* ── Accent — same terracotta as the public site (school.accentColor) ──── */
+  --color-accent:         #C2542E;
+  --color-accent-hover:   #A8431F;
   --color-accent-text:    #ffffff;
-  --color-accent-subtle:  rgba(99, 102, 241, 0.10);
-  --color-accent-border:  rgba(99, 102, 241, 0.25);
+  --color-accent-subtle:  rgba(194, 84, 46, 0.10);
+  --color-accent-border:  rgba(194, 84, 46, 0.25);
 
-  /* ── Page backgrounds ──────────────────────────────────────────────────── */
-  --color-bg:             #f1f5f9;
+  /* ── Page backgrounds — warm cream, matching the public site ────────────── */
+  --color-bg:             #FAF8F4;
   --color-bg-secondary:   #ffffff;
 
   /* ── Cards ─────────────────────────────────────────────────────────────── */
   --color-card-bg:        #ffffff;
-  --color-card-border:    transparent;
-  --color-card-shadow:    0 1px 3px rgba(0,0,0,0.07), 0 6px 16px rgba(0,0,0,0.05);
+  --color-card-border:    #EDE5D8;
+  --color-card-shadow:    0 1px 3px rgba(28,26,23,0.06), 0 6px 16px rgba(28,26,23,0.05);
 
   /* ── Text ──────────────────────────────────────────────────────────────── */
-  --color-text-primary:   #0f172a;
-  --color-text-secondary: #475569;
-  --color-text-muted:     #94a3b8;
+  --color-text-primary:   #1C1A17;
+  --color-text-secondary: #4A4339;
+  --color-text-muted:     #7A6E63;
 
   /* ── Borders & dividers ────────────────────────────────────────────────── */
-  --color-border:         #e2e8f0;
+  --color-border:         #DDD6C8;
 
   /* ── Subtle surface (inputs, tags, secondary buttons) ──────────────────── */
-  --color-bg-subtle:      #f1f5f9;
+  --color-bg-subtle:      #EDE5D8;
 
   /* ── Top nav (theme-aware) ─────────────────────────────────────────────── */
   --color-topnav-bg:      #ffffff;
-  --color-topnav-border:  #e2e8f0;
+  --color-topnav-border:  #DDD6C8;
   --topnav-height:        56px;
 
-  /* ── Sidebar (light theme) ─────────────────────────────────────────────── */
+  /* ── Sidebar (light theme) — white, distinct from the cream content area ─ */
   --color-sidebar-bg:               #ffffff;
-  --color-sidebar-border:           #e2e8f0;
-  --color-sidebar-text:             #64748b;
-  --color-sidebar-text-hover:       #0f172a;
-  --color-sidebar-text-active:      #0f172a;
-  --color-sidebar-item-hover:       rgba(0,0,0,0.04);
-  --color-sidebar-item-active-bg:   rgba(99,102,241,0.08);
-  --color-sidebar-indicator:        #6366f1;
-  --color-sidebar-icon-active:      #6366f1;
+  --color-sidebar-border:           #DDD6C8;
+  --color-sidebar-text:             #7A6E63;
+  --color-sidebar-text-hover:       #1C1A17;
+  --color-sidebar-text-active:      #1C1A17;
+  --color-sidebar-item-hover:       rgba(194,84,46,0.06);
+  --color-sidebar-item-active-bg:   rgba(194,84,46,0.10);
+  --color-sidebar-indicator:        #C2542E;
+  --color-sidebar-icon-active:      #C2542E;
   --sidebar-expanded:               220px;
   --sidebar-collapsed:              60px;
 
@@ -76,45 +84,45 @@
    DESIGN TOKENS — DARK THEME
    ═══════════════════════════════════════════════════════════════════════════ */
 :root.dark {
-  /* ── Accent — unchanged ────────────────────────────────────────────────── */
-  --color-accent:         #6366f1;
-  --color-accent-hover:   #818cf8;
+  /* ── Accent — same terracotta, slightly brighter for contrast on dark ──── */
+  --color-accent:         #D9663D;
+  --color-accent-hover:   #C2542E;
   --color-accent-text:    #ffffff;
-  --color-accent-subtle:  rgba(99,102,241,0.15);
-  --color-accent-border:  rgba(99,102,241,0.30);
+  --color-accent-subtle:  rgba(217,102,61,0.15);
+  --color-accent-border:  rgba(217,102,61,0.30);
 
-  /* ── Page backgrounds ──────────────────────────────────────────────────── */
-  --color-bg:             #0a0f1e;
-  --color-bg-secondary:   #0f172a;
+  /* ── Page backgrounds — warm charcoal/brown, not generic slate ──────────── */
+  --color-bg:             #1C1A17;
+  --color-bg-secondary:   #262320;
 
   /* ── Cards ─────────────────────────────────────────────────────────────── */
-  --color-card-bg:        #1e293b;
-  --color-card-border:    #334155;
+  --color-card-bg:        #262320;
+  --color-card-border:    #3A352E;
   --color-card-shadow:    0 1px 3px rgba(0,0,0,0.40);
 
   /* ── Text ──────────────────────────────────────────────────────────────── */
-  --color-text-primary:   #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted:     #64748b;
+  --color-text-primary:   #FAF8F4;
+  --color-text-secondary: #C7BEB0;
+  --color-text-muted:     #8C8276;
 
   /* ── Borders & dividers ────────────────────────────────────────────────── */
-  --color-border:         #334155;
+  --color-border:         #3A352E;
 
   /* ── Subtle surface ────────────────────────────────────────────────────── */
-  --color-bg-subtle:      #1e293b;
+  --color-bg-subtle:      #262320;
 
   /* ── Top nav ───────────────────────────────────────────────────────────── */
-  --color-topnav-bg:      #0f172a;
-  --color-topnav-border:  #1e293b;
+  --color-topnav-bg:      #262320;
+  --color-topnav-border:  #3A352E;
 
   /* ── Sidebar (dark theme) ───────────────────────────────────────────────── */
-  --color-sidebar-bg:               #1e293b;
-  --color-sidebar-border:           #334155;
-  --color-sidebar-text:             #94a3b8;
-  --color-sidebar-text-hover:       #f1f5f9;
-  --color-sidebar-text-active:      #f1f5f9;
+  --color-sidebar-bg:               #262320;
+  --color-sidebar-border:           #3A352E;
+  --color-sidebar-text:             #C7BEB0;
+  --color-sidebar-text-hover:       #FAF8F4;
+  --color-sidebar-text-active:      #FAF8F4;
   --color-sidebar-item-hover:       rgba(255,255,255,0.05);
-  --color-sidebar-item-active-bg:   rgba(99,102,241,0.18);
+  --color-sidebar-item-active-bg:   rgba(217,102,61,0.18);
 
   /* ── Status ────────────────────────────────────────────────────────────── */
   --color-success-subtle: rgba(16,185,129,0.12);
@@ -125,30 +133,38 @@
 
 /* ═══════════════════════════════════════════════════════════════════════════
    RESET & BASE
+   Everything here lives in @layer base — un-layered rules always beat
+   @layer rules in CSS, regardless of specificity or source order. Two bugs
+   already came from forgetting this (margin/padding reset killing mx-auto/
+   px-5/etc.; `a { color: inherit }` killing text-white on links) — keeping
+   the whole block in one @layer closes off the rest of this bug class too.
    ═══════════════════════════════════════════════════════════════════════════ */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
 
-body {
-  background-color: var(--color-bg);
-  color:            var(--color-text-primary);
-  font-family:      'Inter', 'DM Sans', system-ui, sans-serif;
-  line-height:      1.5;
-  transition:       background-color var(--transition-base),
-                    color var(--transition-base);
-}
+  body {
+    background-color: var(--color-bg);
+    color:            var(--color-text-primary);
+    font-family:      var(--font-body), 'Public Sans', system-ui, sans-serif;
+    line-height:      1.5;
+    transition:       background-color var(--transition-base),
+                      color var(--transition-base);
+  }
 
-a   { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; }
-input, textarea, select { font-family: inherit; }
+  a      { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+  input, textarea, select { font-family: inherit; }
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    SCROLLBAR — subtle, theme-aware
@@ -196,3 +212,56 @@ input, textarea, select { font-family: inherit; }
   outline-offset: 2px;
   border-radius:  var(--radius-sm);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SPINNER
+   ═══════════════════════════════════════════════════════════════════════════ */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCHOOL SITE — warm cream/terracotta palette, scoped so it never touches
+   the admin dashboard's own --color-* tokens above. Neutrals are fixed;
+   --primary/--secondary are driven by the admin's theme accent at runtime
+   (see school-site Tailwind config / inline overrides).
+   ═══════════════════════════════════════════════════════════════════════════ */
+.school-site {
+  /* Guards against the whole page scrolling sideways if any descendant
+     (e.g. the horizontal photo gallery strip) is ever a hair wider than the
+     viewport — without this, one shared scrollbar shifts every section in
+     lockstep instead of staying contained to the gallery itself. */
+  overflow-x: hidden;
+
+  --background:        #FAF8F4;
+  --foreground:         #1C1A17;
+  --card:               #FFFFFF;
+  --card-foreground:    #1C1A17;
+  --primary:            #C2542E;
+  --primary-foreground: #FAF8F4;
+  --secondary:          #E8D9C3;
+  --secondary-foreground: #1C1A17;
+  --muted:              #EDE5D8;
+  --muted-foreground:   #7A6E63;
+  --border:             #DDD6C8;
+
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+.school-site .font-display { font-family: var(--font-display), Georgia, serif; }
+
+/* Scoped, plain-CSS versions of the neutral utility classes (not registered
+   via Tailwind's @theme, deliberately — the admin dashboard already owns
+   --color-border/--color-card-bg/etc. globally, and registering a clashing
+   set of tokens there risks silently breaking its theme). */
+.school-site .bg-background       { background-color: var(--background); }
+.school-site .text-foreground     { color: var(--foreground); }
+.school-site .bg-foreground       { background-color: var(--foreground); }
+.school-site .bg-card             { background-color: var(--card); }
+.school-site .bg-muted            { background-color: var(--muted); }
+.school-site .text-muted-foreground { color: var(--muted-foreground); }
+.school-site .border-border       { border-color: var(--border); }
+.school-site .bg-border           { background-color: var(--border); }
+.school-site .bg-secondary        { background-color: var(--secondary); }
+.school-site .divide-border > :not([hidden]) ~ :not([hidden]) { border-color: var(--border); }

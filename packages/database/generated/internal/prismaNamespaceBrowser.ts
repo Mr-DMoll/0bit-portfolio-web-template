@@ -54,7 +54,14 @@ export const ModelName = {
   User: 'User',
   AuditLog: 'AuditLog',
   Notification: 'Notification',
-  SystemSetting: 'SystemSetting'
+  SystemSetting: 'SystemSetting',
+  School: 'School',
+  StaffMember: 'StaffMember',
+  Post: 'Post',
+  Testimonial: 'Testimonial',
+  TermDate: 'TermDate',
+  GalleryPhoto: 'GalleryPhoto',
+  PageView: 'PageView'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -138,6 +145,139 @@ export const SystemSettingScalarFieldEnum = {
 } as const
 
 export type SystemSettingScalarFieldEnum = (typeof SystemSettingScalarFieldEnum)[keyof typeof SystemSettingScalarFieldEnum]
+
+
+export const SchoolScalarFieldEnum = {
+  id: 'id',
+  schoolName: 'schoolName',
+  type: 'type',
+  motto: 'motto',
+  accentColor: 'accentColor',
+  accentSoft: 'accentSoft',
+  logoUrl: 'logoUrl',
+  heroPhoto: 'heroPhoto',
+  address: 'address',
+  phone: 'phone',
+  email: 'email',
+  principalName: 'principalName',
+  principalPhoto: 'principalPhoto',
+  principalMessage: 'principalMessage',
+  province: 'province',
+  passRate: 'passRate',
+  learnerCount: 'learnerCount',
+  yearEstablished: 'yearEstablished',
+  ratio: 'ratio',
+  features: 'features',
+  socialFacebook: 'socialFacebook',
+  socialTwitter: 'socialTwitter',
+  socialYoutube: 'socialYoutube',
+  footerBio: 'footerBio',
+  ctaTitle: 'ctaTitle',
+  ctaBody: 'ctaBody',
+  ctaBullets: 'ctaBullets',
+  aboutSubtitle: 'aboutSubtitle',
+  aboutHistory: 'aboutHistory',
+  aboutHistoryImage: 'aboutHistoryImage',
+  mission: 'mission',
+  vision: 'vision',
+  sgbBody: 'sgbBody',
+  awards: 'awards',
+  academicStreams: 'academicStreams',
+  academicSupport: 'academicSupport',
+  admissionsDocs: 'admissionsDocs',
+  admissionsFees: 'admissionsFees',
+  admissionsFeeNote: 'admissionsFeeNote',
+  admissionsFAQ: 'admissionsFAQ',
+  admissionsKeyDates: 'admissionsKeyDates',
+  studentActivities: 'studentActivities',
+  calendarEvents: 'calendarEvents',
+  resourceLinks: 'resourceLinks',
+  parentPortalUrl: 'parentPortalUrl',
+  officeHours: 'officeHours',
+  contactSubjects: 'contactSubjects',
+  newsletters: 'newsletters',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SchoolScalarFieldEnum = (typeof SchoolScalarFieldEnum)[keyof typeof SchoolScalarFieldEnum]
+
+
+export const StaffMemberScalarFieldEnum = {
+  id: 'id',
+  schoolId: 'schoolId',
+  name: 'name',
+  role: 'role',
+  subject: 'subject',
+  photo: 'photo',
+  sortOrder: 'sortOrder'
+} as const
+
+export type StaffMemberScalarFieldEnum = (typeof StaffMemberScalarFieldEnum)[keyof typeof StaffMemberScalarFieldEnum]
+
+
+export const PostScalarFieldEnum = {
+  id: 'id',
+  schoolId: 'schoolId',
+  type: 'type',
+  title: 'title',
+  slug: 'slug',
+  date: 'date',
+  category: 'category',
+  excerpt: 'excerpt',
+  body: 'body',
+  image: 'image',
+  published: 'published',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+
+
+export const TestimonialScalarFieldEnum = {
+  id: 'id',
+  schoolId: 'schoolId',
+  quote: 'quote',
+  author: 'author',
+  role: 'role',
+  sortOrder: 'sortOrder'
+} as const
+
+export type TestimonialScalarFieldEnum = (typeof TestimonialScalarFieldEnum)[keyof typeof TestimonialScalarFieldEnum]
+
+
+export const TermDateScalarFieldEnum = {
+  id: 'id',
+  schoolId: 'schoolId',
+  term: 'term',
+  start: 'start',
+  end: 'end',
+  sortOrder: 'sortOrder'
+} as const
+
+export type TermDateScalarFieldEnum = (typeof TermDateScalarFieldEnum)[keyof typeof TermDateScalarFieldEnum]
+
+
+export const GalleryPhotoScalarFieldEnum = {
+  id: 'id',
+  schoolId: 'schoolId',
+  url: 'url',
+  caption: 'caption',
+  sortOrder: 'sortOrder'
+} as const
+
+export type GalleryPhotoScalarFieldEnum = (typeof GalleryPhotoScalarFieldEnum)[keyof typeof GalleryPhotoScalarFieldEnum]
+
+
+export const PageViewScalarFieldEnum = {
+  id: 'id',
+  path: 'path',
+  referrer: 'referrer',
+  createdAt: 'createdAt'
+} as const
+
+export type PageViewScalarFieldEnum = (typeof PageViewScalarFieldEnum)[keyof typeof PageViewScalarFieldEnum]
 
 
 export const SortOrder = {

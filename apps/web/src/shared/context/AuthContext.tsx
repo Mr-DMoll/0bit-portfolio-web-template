@@ -3,7 +3,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { authService } from "@/features/auth/services/auth.service";
 import { useRouter } from "next/navigation";
 
-export type UserRole = "SUPER_ADMIN" | "ADMIN" | "MANAGER" | "USER";
+// Single-tenant site — ADMIN is the only role that ever logs in.
+export type UserRole = "ADMIN";
 
 export interface AuthUser {
   id: string;
@@ -34,10 +35,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const ROLE_ROUTES: Record<string, string> = {
-  SUPER_ADMIN: "/super-admin",
-  ADMIN:       "/admin",
-  MANAGER:     "/manager",
-  USER:        "/user",
+  ADMIN: "/admin/dashboard",
 };
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {

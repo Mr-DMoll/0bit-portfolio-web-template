@@ -3,8 +3,9 @@
 import { useState } from "react";
 import SidebarClient from "./SidebarClient";
 import TopNav from "./TopNav";
+import type { Brand } from "@/shared/config/branding.config";
 
-export default function DashboardShell({ children }: { children: React.ReactNode }) {
+export default function DashboardShell({ children, brand }: { children: React.ReactNode; brand: Brand }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -18,6 +19,7 @@ export default function DashboardShell({ children }: { children: React.ReactNode
       <SidebarClient
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen((o) => !o)}
+        brand={brand}
       />
 
       {/* RIGHT COLUMN — top nav + scrollable content */}

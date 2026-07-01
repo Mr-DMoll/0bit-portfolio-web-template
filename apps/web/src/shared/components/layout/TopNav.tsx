@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/shared/context/AuthContext";
 import { useTheme } from "@/shared/context/ThemeContext";
-import { Bell, ChevronDown, User, Settings, LogOut, Sun, Moon, Check } from "lucide-react";
+import { ChevronDown, LogOut, Sun, Moon } from "lucide-react";
 
 // ─── Avatar ───────────────────────────────────────────────────────────────────
 function Avatar({ initials, size = 32 }: { initials: string; size?: number }) {
@@ -13,16 +13,16 @@ function Avatar({ initials, size = 32 }: { initials: string; size?: number }) {
     <div style={{
       width:           size,
       height:          size,
-      borderRadius:    "var(--radius-pill)",
-      background:      "linear-gradient(135deg, var(--color-accent), var(--color-accent-hover))",
+      borderRadius:    "50%",
+      background:      "var(--color-accent)",
       display:         "flex",
       alignItems:      "center",
       justifyContent:  "center",
-      fontSize:        size * 0.38,
+      fontSize:        size * 0.4,
       fontWeight:      700,
+      fontFamily:      "var(--font-display), Georgia, serif",
       color:           "#fff",
       flexShrink:      0,
-      letterSpacing:   "-0.01em",
       userSelect:      "none",
     }}>
       {initials}
@@ -146,47 +146,6 @@ export default function TopNav() {
       zIndex:          10,
     }}>
 
-      {/* ── Bell ──────────────────────────────────────────────────────────── */}
-      <Link
-        href="/notifications"
-        style={{
-          position:       "relative",
-          display:        "flex",
-          alignItems:     "center",
-          justifyContent: "center",
-          width:          "36px",
-          height:         "36px",
-          borderRadius:   "var(--radius-md)",
-          color:          "var(--color-text-secondary)",
-          transition:     "background var(--transition-fast), color var(--transition-fast)",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = "var(--color-accent-subtle)";
-          e.currentTarget.style.color      = "var(--color-accent)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = "transparent";
-          e.currentTarget.style.color      = "var(--color-text-secondary)";
-        }}
-        title="Notifications"
-      >
-        <Bell size={18} strokeWidth={1.8} />
-        {/* Unread badge — shown when there are notifications */}
-        <span style={{
-          position:    "absolute",
-          top:         "6px",
-          right:       "6px",
-          width:       "7px",
-          height:      "7px",
-          borderRadius: "var(--radius-pill)",
-          background:  "var(--color-accent)",
-          border:      "2px solid var(--color-topnav-bg)",
-        }} />
-      </Link>
-
-      {/* ── Divider ───────────────────────────────────────────────────────── */}
-      <div style={{ width: "1px", height: "20px", background: "var(--color-border)" }} />
-
       {/* ── Avatar + dropdown ─────────────────────────────────────────────── */}
       <div ref={dropdownRef} style={{ position: "relative" }}>
         <button
@@ -267,21 +226,6 @@ export default function TopNav() {
                 {user?.email}
               </div>
             </div>
-
-            <Divider />
-
-            <DropdownItem
-              icon={User}
-              label="Profile"
-              href="/profile"
-              onClick={() => setDropdownOpen(false)}
-            />
-            <DropdownItem
-              icon={Settings}
-              label="Settings"
-              href="/settings"
-              onClick={() => setDropdownOpen(false)}
-            />
 
             <Divider />
 

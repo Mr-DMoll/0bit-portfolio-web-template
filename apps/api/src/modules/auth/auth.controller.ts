@@ -196,54 +196,6 @@ export const resetPassword = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// ── Self register (only if registration mode allows) ──────────────────────────
-
-export const register = catchAsync(async (req: Request, res: Response) => {
-  // Check if self-registration is enabled
-  const setting = await prisma.systemSetting.findUnique({
-    where: { key: "registration_mode" },
-  });
-
-  const mode = setting?.value ?? "INVITE_ONLY";
-  if (mode === "INVITE_ONLY")
-    throw new AppError("Registration is by invitation only", HttpStatus.FORBIDDEN);
-
-  const { email, password, firstName, lastName } = req.body;
-  if (!email || !password) throw new AppError("Email and password are required", HttpStatus.BAD_REQUEST);
-
-  const existing = await prisma.user.findUnique({ where: { email: email.trim().toLowerCase() } });
-  if (existing) throw new AppError("Email already in use", HttpStatus.CONFLICT);
-
-  const hashed = await authService.hashPassword(password);
-  const status  = mode === "SELF_REGISTER_AUTO" ? "ACTIVE" : "PENDING";
-
-  const user = await prisma.user.create({
-    data: {
-      email:         email.trim().toLowerCase(),
-      password:      hashed,
-      role:          "USER",
-      accountStatus: status,
-      firstName:     firstName ?? null,
-      lastName:      lastName  ?? null,
-    },
-  });
-
-  await prisma.auditLog.create({
-    data: { userId: user.id, action: "REGISTERED" },
-  });
-  req.auditLogged = true;
-
-  if (mode === "SELF_REGISTER_AUTO") {
-    const token = authService.generateToken(user.id, user.role);
-    setAuthCookie(res, token);
-    return res.status(HttpStatus.CREATED).json({
-      status: "success",
-      data: { token, user: { id: user.id, email: user.email, role: user.role } },
-    });
-  }
-
-  return res.status(HttpStatus.CREATED).json({
-    status:  "success",
-    message: "Registration successful. An admin will review your account.",
-  });
-});
+// Self-registration removed — this is an invite-only, two-role (ADMIN/MANAGER)
+// single-tenant site. Admins create Manager accounts directly; there is no
+// public sign-up flow.

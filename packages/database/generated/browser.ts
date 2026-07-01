@@ -37,3 +37,38 @@ export type Notification = Prisma.NotificationModel
  * 
  */
 export type SystemSetting = Prisma.SystemSettingModel
+/**
+ * Model School
+ * 
+ */
+export type School = Prisma.SchoolModel
+/**
+ * Model StaffMember
+ * 
+ */
+export type StaffMember = Prisma.StaffMemberModel
+/**
+ * Model Post
+ * 
+ */
+export type Post = Prisma.PostModel
+/**
+ * Model Testimonial
+ * 
+ */
+export type Testimonial = Prisma.TestimonialModel
+/**
+ * Model TermDate
+ * 
+ */
+export type TermDate = Prisma.TermDateModel
+/**
+ * Model GalleryPhoto
+ * 
+ */
+export type GalleryPhoto = Prisma.GalleryPhotoModel
+/**
+ * Model PageView
+ * 
+ */
+export type PageView = Prisma.PageViewModel
