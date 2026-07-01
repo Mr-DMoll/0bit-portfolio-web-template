@@ -32,7 +32,13 @@ export function AdminLoginPage() {
     try {
       await login(email, password);
     } catch (err: any) {
-      setError(err.response?.data?.message ?? "Invalid email or password.");
+      if (err.response) {
+        setError(err.response.data?.message ?? "Invalid email or password.");
+      } else if (err.code === "ECONNABORTED") {
+        setError("The server took too long to respond. Please try again in a moment.");
+      } else {
+        setError("Couldn't reach the server. Check your connection and try again.");
+      }
       setLoading(false);
     }
   };

@@ -106,14 +106,22 @@ const DEFAULT_FEATURES: SchoolFeature[] = [
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api/v1";
 
+// A slow/unreachable API must never hang a page forever — cap every request
+// here so a down backend fails fast (throws) instead of stalling the render.
+const FETCH_TIMEOUT_MS = 8000;
+
+function apiFetch(path: string) {
+  return fetch(`${BASE_URL}${path}`, { cache: "no-store", signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+}
+
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 }
 
 export async function fetchSchool(): Promise<SchoolConfig> {
   const [schoolRes, newsRes] = await Promise.all([
-    fetch(`${BASE_URL}/school`, { cache: "no-store" }),
-    fetch(`${BASE_URL}/posts?type=NEWS`, { cache: "no-store" }),
+    apiFetch("/school"),
+    apiFetch("/posts?type=NEWS"),
   ]);
   const schoolJson = await schoolRes.json();
   const newsJson = await newsRes.json();
@@ -208,13 +216,13 @@ export async function fetchSchool(): Promise<SchoolConfig> {
 
 // Blog only shows up in the public nav once at least one Blog post exists.
 export async function fetchHasBlog(): Promise<boolean> {
-  const res = await fetch(`${BASE_URL}/posts?type=BLOG`, { cache: "no-store" });
+  const res = await apiFetch("/posts?type=BLOG");
   const json = await res.json();
   return (json.data?.posts?.length ?? 0) > 0;
 }
 
 export async function fetchBlogPosts(): Promise<NewsItem[]> {
-  const res = await fetch(`${BASE_URL}/posts?type=BLOG`, { cache: "no-store" });
+  const res = await apiFetch("/posts?type=BLOG");
   const json = await res.json();
   return (json.data?.posts ?? []).map((p: any, i: number) => ({
     id: i + 1,

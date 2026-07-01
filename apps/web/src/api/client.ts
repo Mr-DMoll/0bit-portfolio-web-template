@@ -13,6 +13,9 @@ const apiClient = axios.create({
   baseURL: `${BASE_URL}`,
   withCredentials: true,
   headers: { "Content-Type": "application/json" },
+  // No default timeout in axios means a slow/unreachable API leaves callers
+  // (e.g. the sign-in button) spinning forever with no error ever surfaced.
+  timeout: 15000,
 });
 
 // Attach token from localStorage to every request
