@@ -36,3 +36,7 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+# Local file uploads (runtime content, not source)
+apps/api/public/uploads/*
+!apps/api/public/uploads/.gitkeep
