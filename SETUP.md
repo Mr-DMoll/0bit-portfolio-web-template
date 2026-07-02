@@ -108,19 +108,17 @@ If any are red, check the error logs and compare your `.env` values.
 
 ## Optional — Auto-deploy to production
 
-For automatic deployment on every push to `main`, add these secrets in GitHub:
+If you got this project by bootstrapping it through the 0bit platform, Vercel
+and Railway are already connected and deploying on every push — nothing to
+do here.
 
-**Web → Vercel:**
-```bash
-gh secret set VERCEL_TOKEN        # vercel.com → Account Settings → Tokens
-gh secret set VERCEL_ORG_ID       # vercel.com → Team Settings → General
-gh secret set VERCEL_PROJECT_ID   # vercel.com → Project Settings → General
-```
-
-**API → Railway:**
-```bash
-gh secret set RAILWAY_TOKEN       # railway.app → Account → Tokens
-```
+Setting this up yourself (e.g. you cloned this repo directly, outside the
+0bit bootstrap flow): connect the repo natively in each platform's own
+dashboard rather than through GitHub Actions —
+[Vercel → Import Project](https://vercel.com/new) (root directory `apps/web`)
+and [Railway → New Project → Deploy from GitHub repo](https://railway.app/new)
+(root directory `apps/api`). Both auto-deploy on push once connected, no
+extra secrets or workflow files needed.
 
 ---
 
